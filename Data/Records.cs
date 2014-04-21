@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace CoPilot.Core.Data
@@ -103,8 +104,12 @@ namespace CoPilot.Core.Data
             Records tmpRecords;
             try
             {
+                var settings = new XmlReaderSettings();
+                settings.Async = true;
+
+                XmlReader reader = XmlReader.Create(stream, settings);
                 XmlSerializer xml = new XmlSerializer(typeof(Records));
-                tmpRecords = xml.Deserialize(stream) as Records;
+                tmpRecords = xml.Deserialize(reader) as Records;
             }
             catch
             {
