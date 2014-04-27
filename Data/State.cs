@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Device.Location;
 using System.Linq;
 using System.Text;
@@ -10,43 +11,43 @@ namespace CoPilot.Core.Data
     [XmlRoot("state")]
     public class State
     {
-        [XmlElement("position")]
-        public GeoCoordinate Position { get; set; }
+        [DefaultValue("Unknown"), XmlAttribute("position")]
+        public String Position { get; set; }
 
-        [XmlElement("time")]
+        [XmlAttribute("time")]
         public DateTime Time { get; set; }
 
-        [XmlElement("rpm")]
+        [DefaultValue(0), XmlAttribute("rpm")]
         public Double Rpm { get; set; }
 
-        [XmlElement("speed")]
+        [DefaultValue(0), XmlAttribute("speed")]
         public Double Speed { get; set; }
 
-        [XmlElement("temperature")]
+        [DefaultValue(0), XmlAttribute("temperature")]
         public Double Temperature { get; set; }
 
-        [XmlElement("engine-load")]
+        [DefaultValue(0), XmlAttribute("load")]
         public Double EngineLoad { get; set; }
 
-        [XmlElement("max-air-flow-rate")]
+        [DefaultValue(0), XmlAttribute("flowrate")]
         public Double MaxAirFlowRate { get; set; }
 
-        [XmlElement("throttle-position")]
+        [DefaultValue(0), XmlAttribute("throttle")]
         public Double ThrottlePosition { get; set; }
 
-        [XmlElement("accelerator-pedal-position")]
+        [DefaultValue(0), XmlAttribute("pedal")]
         public Double AcceleratorPedalPosition { get; set; }
 
-        [XmlElement("engine-oil-temperature")]
+        [DefaultValue(0), XmlAttribute("oil-temperature")]
         public Double EngineOilTemperature { get; set; }
 
-        [XmlElement("fuel-injection-timing")]
+        [DefaultValue(0), XmlAttribute("injection")]
         public Double FuelInjectionTiming { get; set; }
 
-        [XmlElement("engine-reference-torque")]
+        [DefaultValue(0), XmlAttribute("torque")]
         public Double EngineReferenceTorque { get; set; }
 
-        [XmlElement("uptime")]
+        [DefaultValue(0), XmlAttribute("uptime")]
         public Double Uptime { get; set; }
     }
 }

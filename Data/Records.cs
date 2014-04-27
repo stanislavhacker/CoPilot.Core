@@ -48,10 +48,11 @@ namespace CoPilot.Core.Data
         /// <returns></returns>
         public static Records Load(String name, IsolatedStorageFile storage)
         {
-            Records tmpRecords;
             Stream stream;
+            Records tmpRecords = null;
+            var fileExists = storage.FileExists(name);
 
-            if (storage.FileExists(name))
+            if (fileExists)
             {
                 //stream
                 stream = storage.OpenFile(name, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
@@ -62,7 +63,8 @@ namespace CoPilot.Core.Data
                 stream.Close();
                 stream.Dispose();
             }
-            else
+
+            if (!fileExists || tmpRecords == null)
             {
                 //new data
                 tmpRecords = new Records();
