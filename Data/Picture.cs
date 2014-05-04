@@ -15,12 +15,25 @@ namespace CoPilot.Core.Data
         public DateTime Time { get; set; }
 
         [XmlElement("path")]
-        public String Path { get; set; }
+        public String _path { get; set; }
 
         [XmlElement("rotated")]
         public Boolean Rotated { get; set; }
 
-        [XmlElement("backups")]
-        public ObservableCollection<BackupInfo> Backups { get; set; }
+        [XmlElement("backup")]
+        public BackupInfo Backup { get; set; }
+
+        [XmlIgnore]
+        public String Path 
+        {
+            get
+            {
+                return "/shared/transfers/" + _path;
+            }
+            set
+            {
+                _path = value;
+            }
+        }
     }
 }

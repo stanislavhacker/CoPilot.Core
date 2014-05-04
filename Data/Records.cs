@@ -76,8 +76,7 @@ namespace CoPilot.Core.Data
                 tmpRecords.Id = newGuid();
 
                 tmpRecords.Backup = new BackupInfo();
-                tmpRecords.Backup.DeleteUrl = String.Empty;
-                tmpRecords.Backup.DownloadUrl = String.Empty;
+                tmpRecords.Backup.Url = String.Empty;
                 tmpRecords.Backup.Date = DateTime.Now;
                 tmpRecords.Backup.Id = String.Empty;
 
@@ -151,9 +150,6 @@ namespace CoPilot.Core.Data
         [XmlAttribute("backup-on-start")]
         public Boolean BackupOnStart { get; set; }
 
-        [XmlAttribute("email-on-backup")]
-        public Boolean EmailOnBackup { get; set; }
-
         [XmlAttribute("currency")]
         public Currency Currency { get; set; }
 
@@ -165,9 +161,6 @@ namespace CoPilot.Core.Data
 
         [XmlAttribute("obd-device")]
         public String ObdDevice { get; set; }
-
-        [XmlAttribute("backup-email")]
-        public String BackupEmail { get; set; }
 
         [XmlAttribute("change")]
         public DateTime Change { get; set; }
@@ -198,6 +191,13 @@ namespace CoPilot.Core.Data
 
         //////////////////////////////////////////////////////////// XML
 
+        [XmlIgnore]
+        public Double Size { get; private set; }
+
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="stream"></param>
         public void Save(Stream stream)
         {
             XmlSerializer xml = new XmlSerializer(GetType());
@@ -221,6 +221,7 @@ namespace CoPilot.Core.Data
             }
 
             this.Save(stream);
+            this.Size = stream.Length;
 
             stream.Close();
             stream.Dispose();

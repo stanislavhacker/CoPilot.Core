@@ -14,10 +14,10 @@ namespace CoPilot.Core.Data
         public DateTime Time { get; set; }
 
         [XmlElement("path")]
-        public String Path { get; set; }
+        public String _path { get; set; }
 
         [XmlElement("preview")]
-        public String Preview { get; set; }
+        public String _preview { get; set; }
 
         [XmlElement("rotated")]
         public Boolean Rotated { get; set; }
@@ -25,11 +25,8 @@ namespace CoPilot.Core.Data
         [XmlElement("duration")]
         public int duration { get; set; }
 
-        [XmlElement("video-backups")]
-        public ObservableCollection<BackupInfo> VideoBackups { get; set; }
-
-        [XmlElement("preview-backups")]
-        public ObservableCollection<BackupInfo> PreviewBackups { get; set; }
+        [XmlElement("video-backup")]
+        public BackupInfo VideoBackup { get; set; }
         
         [XmlIgnore]
         public TimeSpan Duration
@@ -41,6 +38,33 @@ namespace CoPilot.Core.Data
             set
             {
                 duration = Convert.ToInt32(value.TotalSeconds);
+            }
+        }
+
+
+        [XmlIgnore]
+        public String Path
+        {
+            get
+            {
+                return "/shared/transfers/" + _path;
+            }
+            set
+            {
+                _path = value;
+            }
+        }
+
+        [XmlIgnore]
+        public String Preview
+        {
+            get
+            {
+                return "/shared/transfers/" + _preview;
+            }
+            set
+            {
+                _preview = value;
             }
         }
     }

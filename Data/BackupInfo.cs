@@ -8,11 +8,8 @@ namespace CoPilot.Core.Data
 {
     public class BackupInfo
     {
-        [XmlAttribute("download-url")]
-        public String DownloadUrl { get; set; }
-
-        [XmlAttribute("delete-url")]
-        public String DeleteUrl { get; set; }
+        [XmlAttribute("url")]
+        public String Url { get; set; }
 
         [XmlAttribute("date")]
         public DateTime Date { get; set; }
