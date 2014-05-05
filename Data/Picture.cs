@@ -35,5 +35,8 @@ namespace CoPilot.Core.Data
                 _path = value;
             }
         }
+
+        [XmlIgnore]
+        public object Data { get; set; }
     }
 }

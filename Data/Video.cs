@@ -67,5 +67,8 @@ namespace CoPilot.Core.Data
                 _preview = value;
             }
         }
+
+        [XmlIgnore]
+        public object Data { get; set; }
     }
 }
