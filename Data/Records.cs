@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CoPilot.Core.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -29,6 +29,15 @@ namespace CoPilot.Core.Data
     }
 
     /// <summary>
+    /// Quality
+    /// </summary>
+    public enum Quality
+    {
+        SD,
+        HD
+    }
+
+    /// <summary>
     /// Consumption
     /// </summary>
     public enum Consumption
@@ -46,25 +55,19 @@ namespace CoPilot.Core.Data
         /// Load
         /// </summary>
         /// <returns></returns>
-        public static Records Load(String name, IsolatedStorageFile storage)
+        public static Records Load(Stream stream = null)
         {
-            Stream stream;
             Records tmpRecords = null;
-            var fileExists = storage.FileExists(name);
 
-            if (fileExists)
+            if (stream != null)
             {
-                //stream
-                stream = storage.OpenFile(name, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
-
                 //data
                 tmpRecords = Deserialize(stream);
-
-                stream.Close();
+                tmpRecords.Size = stream.Length;
                 stream.Dispose();
             }
 
-            if (!fileExists || tmpRecords == null)
+            if (tmpRecords == null)
             {
                 //new data
                 tmpRecords = new Records();
@@ -80,6 +83,7 @@ namespace CoPilot.Core.Data
                 tmpRecords.Backup.Date = DateTime.Now;
                 tmpRecords.Backup.Id = String.Empty;
 
+                tmpRecords.Quality = Quality.SD;
                 tmpRecords.Currency = Currency.USD;
                 tmpRecords.Distance = Distance.Mi;
                 tmpRecords.Consumption = Consumption.LitersPer100Distance;
@@ -147,6 +151,9 @@ namespace CoPilot.Core.Data
         [XmlAttribute("drive-mode")]
         public Boolean DriveModeAllowed { get; set; }
 
+        [XmlAttribute("quality")]
+        public Quality Quality { get; set; }
+
         [XmlAttribute("backup-on-start")]
         public Boolean BackupOnStart { get; set; }
 
@@ -202,29 +209,48 @@ namespace CoPilot.Core.Data
         {
             XmlSerializer xml = new XmlSerializer(GetType());
             xml.Serialize(stream, this);
+            this.Size = stream.Length;
+            stream.Dispose();
         }
 
         /// <summary>
-        /// Save
+        /// Get average consuption
         /// </summary>
-        /// <param name="name"></param>
-        public void Save(String name, IsolatedStorageFile storage)
+        /// <returns></returns>
+        public Double AverageConsumption()
         {
-            Stream stream;
-            if (storage.FileExists(name))
+            var distanceSum = 0.0;
+            var fuelSum = 0.0;
+
+            var distanceSumFull = 0.0;
+            var fuelSumFull = 0.0;
+
+            if (this.Fills.Count < 2)
             {
-                stream = storage.OpenFile(name, FileMode.Truncate, FileAccess.ReadWrite, FileShare.Read);
-            } 
-            else 
-            {
-                stream = storage.OpenFile(name, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+                return 0;
             }
 
-            this.Save(stream);
-            this.Size = stream.Length;
+            for (var i = this.Fills.Count - 1; i > 0; i--)
+            {
+                var current = this.Fills[i];
+                var next = this.Fills[i - 1];
 
-            stream.Close();
-            stream.Dispose();
+                var distance = DistanceExchange.GetOdometerWithRightDistance(next.Odometer) - DistanceExchange.GetOdometerWithRightDistance(current.Odometer);
+                var l = current.Refueled;
+
+                if (current.Full)
+                {
+                    distanceSumFull += distance;
+                    fuelSumFull += l;
+                }
+                else
+                {
+                    distanceSum += distance;
+                    fuelSum += l;
+                }
+            }
+
+            return Math.Round((fuelSum + fuelSumFull) / (distanceSum + distanceSumFull), 4);
         }
     }
 }
