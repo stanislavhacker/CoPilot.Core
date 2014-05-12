@@ -29,15 +29,6 @@ namespace CoPilot.Core.Data
     }
 
     /// <summary>
-    /// Quality
-    /// </summary>
-    public enum Quality
-    {
-        SD,
-        HD
-    }
-
-    /// <summary>
     /// Consumption
     /// </summary>
     public enum Consumption
@@ -83,7 +74,6 @@ namespace CoPilot.Core.Data
                 tmpRecords.Backup.Date = DateTime.Now;
                 tmpRecords.Backup.Id = String.Empty;
 
-                tmpRecords.Quality = Quality.SD;
                 tmpRecords.Currency = Currency.USD;
                 tmpRecords.Distance = Distance.Mi;
                 tmpRecords.Consumption = Consumption.LitersPer100Distance;
@@ -150,9 +140,6 @@ namespace CoPilot.Core.Data
 
         [XmlAttribute("drive-mode")]
         public Boolean DriveModeAllowed { get; set; }
-
-        [XmlAttribute("quality")]
-        public Quality Quality { get; set; }
 
         [XmlAttribute("backup-on-start")]
         public Boolean BackupOnStart { get; set; }
