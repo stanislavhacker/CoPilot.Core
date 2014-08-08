@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Data\BackupInfo.cs" />
     <Compile Include="Data\Fill.cs" />
+    <Compile Include="Data\Maintenance.cs" />
     <Compile Include="Data\NotifyObject.cs" />
     <Compile Include="Data\Odometer.cs" />
     <Compile Include="Data\Picture.cs" />
