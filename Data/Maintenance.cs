@@ -40,6 +40,9 @@ namespace CoPilot.Core.Data
         [XmlElement("warning_days")]
         public Int16 WarningDays { get; set; }
 
+        [XmlElement("id")]
+        public String Id { get; set; }
+
 
         /// <summary>
         /// Is odometer
