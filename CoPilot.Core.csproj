@@ -79,6 +79,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Api\Skin.cs" />
     <Compile Include="Data\BackupInfo.cs" />
     <Compile Include="Data\Fill.cs" />
     <Compile Include="Data\Maintenance.cs" />
