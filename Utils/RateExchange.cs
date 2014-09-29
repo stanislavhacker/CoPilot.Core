@@ -48,7 +48,7 @@ namespace CoPilot.Core.Utils
                 return 19.713200000000001;
             }
 
-            return 0;
+            return 1;
         }
     }
 }
