@@ -16,7 +16,9 @@ namespace CoPilot.Core.Data
     public enum Currency
     {
         CZK,
-        USD
+        USD,
+        EUR,
+        GBP
     }
 
     /// <summary>

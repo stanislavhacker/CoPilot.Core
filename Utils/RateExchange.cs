@@ -35,17 +35,65 @@ namespace CoPilot.Core.Utils
         /// <returns></returns>
         public static Double GetExchangeRateFor(Currency from, Currency to)
         {
-            //CZK => USD
-            //{"to": "USD", "rate": 0.050727399999999999, "from": "CZK"}
-            if (from == Currency.CZK && to == Currency.USD)
-            {
-                return 0.050727399999999999;
+            //CZK => to
+            if (from == Currency.CZK) {
+                switch (to)
+                {
+                    case Currency.CZK:
+                        return 1;
+                    case Currency.USD:
+                        return 0.050727399999999999;
+                    case Currency.GBP:
+                        return 0.0283233982;
+                    case Currency.EUR:
+                        return 0.0363989442;
+                }
             }
-            //USD => CZK
-            //{"to": "CZK", "rate": 19.713200000000001, "from": "USD"}
-            if (from == Currency.USD && to == Currency.CZK)
+            //USD => to
+            if (from == Currency.USD)
             {
-                return 19.713200000000001;
+                switch (to)
+                {
+                    case Currency.CZK:
+                        return 19.713200000000001;
+                    case Currency.USD:
+                        return 1;
+                    case Currency.GBP:
+                        return 0.616771878;
+                    case Currency.EUR:
+                        return 0.792625413;
+                }
+            }
+            //EUR => to
+            if (from == Currency.EUR)
+            {
+                switch (to)
+                {
+                    case Currency.CZK:
+                        return 27.4733243;
+                    case Currency.USD:
+                        return 1.26163;
+                    case Currency.GBP:
+                        return 0.778137904;
+                    case Currency.EUR:
+                        return 1;
+                }
+            }
+
+            //GBP => to
+            if (from == Currency.GBP)
+            {
+                switch (to)
+                {
+                    case Currency.CZK:
+                        return 35.306498;
+                    case Currency.USD:
+                        return 1.621345;
+                    case Currency.GBP:
+                        return 1;
+                    case Currency.EUR:
+                        return 1.28511925;
+                }
             }
 
             return 1;
