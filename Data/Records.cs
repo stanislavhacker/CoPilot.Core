@@ -87,6 +87,9 @@ namespace CoPilot.Core.Data
                 tmpRecords.Fills = new ObservableCollection<Fill>();
                 tmpRecords.Repairs = new ObservableCollection<Repair>();
                 tmpRecords.Maintenances = new ObservableCollection<Maintenance>();
+
+                tmpRecords.Times = new Times();
+                tmpRecords.Times.Circuits = new ObservableCollection<Circuit>();
             }
 
             return tmpRecords;
@@ -188,6 +191,9 @@ namespace CoPilot.Core.Data
 
         [XmlElement("maintenances")]
         public ObservableCollection<Maintenance> Maintenances { get; set; }
+
+        [XmlElement("times", IsNullable = true)]
+        public Times Times { get; set; }
 
         //////////////////////////////////////////////////////////// XML
 
