@@ -14,8 +14,8 @@ namespace CoPilot.Core.Data
         [XmlElement("duration")]
         public int duration { get; set; }
 
-        [XmlAttribute("positions")]
-        public List<String> Positions { get; set; }
+        [XmlElement("states")]
+        public List<State> States { get; set; }
 
         [XmlAttribute("speeds")]
         public List<Double> Speeds { get; set; }
@@ -26,8 +26,14 @@ namespace CoPilot.Core.Data
         [XmlElement("id")]
         public String Id { get; set; }
 
+        [XmlElement("name")]
+        public String Name { get; set; }
+
         [XmlAttribute("start")]
         public DateTime Start { get; set; }
+
+
+
 
         [XmlIgnore]
         public TimeSpan Duration
@@ -39,6 +45,34 @@ namespace CoPilot.Core.Data
             set
             {
                 duration = Convert.ToInt32(value.TotalSeconds);
+            }
+        }
+
+        [XmlIgnore]
+        public TimeSpan FastestLap
+        {
+            get
+            {
+                TimeSpan best = TimeSpan.MaxValue;
+                foreach (var lap in Laps)
+                {
+                    TimeSpan lapTime = new TimeSpan(0, 0, 0, 0, (int)lap);
+                    if (lapTime < best)
+                    {
+                        best = lapTime;
+                    }
+                }
+                return best;
+            }
+        }
+
+        [XmlIgnore]
+        public Odometer AvarageSpeed
+        {
+            get
+            {
+                var sum = Speeds.Sum();
+                return new Odometer(Math.Round(sum / Speeds.Count, 1), Distance.Km);
             }
         }
     }
