@@ -17,10 +17,7 @@ namespace CoPilot.Core.Data
         [XmlElement("states")]
         public List<State> States { get; set; }
 
-        [XmlAttribute("speeds")]
-        public List<Double> Speeds { get; set; }
-
-        [XmlAttribute("laps")]
+        [XmlElement("laps")]
         public List<Double> Laps { get; set; }
 
         [XmlElement("id")]
@@ -29,7 +26,7 @@ namespace CoPilot.Core.Data
         [XmlElement("name")]
         public String Name { get; set; }
 
-        [XmlAttribute("start")]
+        [XmlElement("start")]
         public DateTime Start { get; set; }
 
 
@@ -71,8 +68,8 @@ namespace CoPilot.Core.Data
         {
             get
             {
-                var sum = Speeds.Sum();
-                return new Odometer(Math.Round(sum / Speeds.Count, 1), Distance.Km);
+                var sum = States.Sum(e => e.Speed);
+                return new Odometer(Math.Round(sum / States.Count, 1), Distance.Km);
             }
         }
     }
