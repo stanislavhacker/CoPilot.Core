@@ -18,7 +18,11 @@ namespace CoPilot.Core.Data
         CZK,
         USD,
         EUR,
-        GBP
+        GBP,
+        SEK,
+        CHF,
+        RUB,
+        TRY	
     }
 
     /// <summary>
