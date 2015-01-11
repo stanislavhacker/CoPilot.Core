@@ -34,6 +34,7 @@ namespace CoPilot.Core.Api
         public Int32 Videos { get; set; }
         public Int32 Pictures { get; set; }
         public Int32 Paths { get; set; }
-
+        public Int32 Circuits { get; set; }
+        public Int32 Times { get; set; }
     }
 }
