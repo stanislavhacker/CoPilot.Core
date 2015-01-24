@@ -22,7 +22,8 @@ namespace CoPilot.Core.Data
         SEK,
         CHF,
         RUB,
-        TRY	
+        TRY,
+        CNY
     }
 
     /// <summary>
