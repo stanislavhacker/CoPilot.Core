@@ -20,6 +20,11 @@ namespace CoPilot.Core.Api
         public String Distance { get; set; }
 
         /// <summary>
+        /// Unit
+        /// </summary>
+        public String Unit { get; set; }
+
+        /// <summary>
         /// Consumption
         /// </summary>
         public String Consumption { get; set; }

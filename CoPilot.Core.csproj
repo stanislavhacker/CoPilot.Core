@@ -98,6 +98,7 @@
     <Compile Include="Utils\DistanceExchange.cs" />
     <Compile Include="Utils\RateExchange.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Utils\UnitExchange.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ProjectExtensions />

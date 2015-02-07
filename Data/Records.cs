@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,15 @@ namespace CoPilot.Core.Data
     {
         Km,
         Mi
+    }
+
+    /// <summary>
+    /// Unit
+    /// </summary>
+    public enum Unit
+    {
+        Liters,
+        Gallons
     }
 
     /// <summary>
@@ -83,6 +93,7 @@ namespace CoPilot.Core.Data
 
                 tmpRecords.Currency = Currency.USD;
                 tmpRecords.Distance = Distance.Mi;
+                tmpRecords.Unit = Unit.Liters;
                 tmpRecords.Consumption = Consumption.LitersPer100Distance;
                 tmpRecords.ObdDevice = String.Empty;
 
@@ -160,6 +171,9 @@ namespace CoPilot.Core.Data
 
         [XmlAttribute("distance")]
         public Distance Distance { get; set; }
+
+        [XmlAttribute("unit"), DefaultValue(Unit.Liters)]
+        public Unit Unit { get; set; }
 
         [XmlAttribute("consumption")]
         public Consumption Consumption { get; set; }
